@@ -38,11 +38,11 @@ namespace GuessingGame
                 }
                 catch (FormatException)
                 {
-                    userGuessInt = -2;
+                    userGuessInt = -2; //if it's not a valid integer, then make it -2 so program knows
                 }
                 catch (OverflowException)
                 {
-                    userGuessInt = -2;
+                    userGuessInt = -2; //if it's not a valid integer, then make it -2 so program knows
                 }
                 switch (userGuessInt)
                 {
@@ -56,6 +56,7 @@ namespace GuessingGame
                         userWon = true;
                         break;*/
                     case -1: //exit 
+                        guessCount--;
                         exitTheApp = true;
                         break;
 
@@ -78,6 +79,8 @@ namespace GuessingGame
 
 
             } while ((guessCount < maxGuesses) && (!userWon) && (!exitTheApp)); //This loop control is getting convoluted
+            if ((guessCount >= maxGuesses) && (!userWon))
+                Console.WriteLine("Dang! You Lost, Mang!\n");
             Console.WriteLine("Bye-bye.  The secret number was: " + secretNumber + "\n\n\n");
             
 
