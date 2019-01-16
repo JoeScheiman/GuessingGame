@@ -11,8 +11,10 @@ namespace GuessingGame
 
             //Console.WriteLine(userGuess);
 
-            int maxGuesses = 2;
+            int maxGuesses = 3;
             int guessCount = 0;
+            int min = 0;
+            int max = 10;
             bool userWon = false;
             bool exitTheApp = false;
             String userGuess = null;
@@ -36,14 +38,11 @@ namespace GuessingGame
                 }
                 catch (FormatException)
                 {
-                    // the FormatException is thrown when the string text does 
-                    // not represent a valid integer.
+                    userGuessInt = -2;
                 }
                 catch (OverflowException)
                 {
-                    // the OverflowException is thrown when the string is a valid integer, 
-                    // but is too large for a 32 bit integer.  Use Convert.ToInt64 in
-                    // this case.
+                    userGuessInt = -2;
                 }
                 switch (userGuessInt)
                 {
@@ -52,27 +51,36 @@ namespace GuessingGame
                             "Type -1 to exit.");
                         guessCount--;
                         break;
-                    case secretNumber:
+                    /*case secretNumber:
                         Console.WriteLine("Good Jorb!  You've Won!\n\n\n");
                         userWon = true;
-                        break;
+                        break;*/
                     case -1: //exit 
                         exitTheApp = true;
                         break;
 
                     default:
-                        if (userGuessInt > secretNumber)
+                        if ((userGuessInt < min) || (userGuessInt > max))
+                            Console.WriteLine("Choose a number between 1 and 10!\n\n\n");
+                        else if (userGuessInt > secretNumber)
                             Console.WriteLine("Your guess is too HIGH!\n");
-                        else
+                        else if (userGuessInt < secretNumber)
                             Console.WriteLine("Your guess is too LOW!\n");
+                        else
+                        {
+                            Console.WriteLine("Good Jorb!  You've Won!\n\n\n");
+                            userWon = true;
+                        }
+                        
                         break;
 
                 }
 
 
             } while ((guessCount < maxGuesses) && (!userWon) && (!exitTheApp)); //This loop control is getting convoluted
-
+            Console.WriteLine("Bye-bye.  The secret number was: " + secretNumber + "\n\n\n");
             
+
         }
     }
 }
